@@ -9,29 +9,31 @@ import UIKit
 
 class StartViewController: UIViewController {
     
-    let gameBrain = GameBrain.shared
+    let highScore = CoreDataManager.shared.calculateHighScore()
     
     @IBOutlet weak var highScoreLabel: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("----")
-        print("viewWillAppear was hit")
-        print("\(gameBrain.highScore)")
-        print("----")
         
-        highScoreLabel.text = "High Score: \(gameBrain.highScore)"
+        highScoreLabel.text = "High Score: \(highScore)"
         
     }
     
     @IBAction func startPressed(_ sender: UIButton) {
         self.performSegue(withIdentifier: "goToGame", sender: self)
         
-//        let destinationVc = GameViewController()
-//        destinationVc.modalPresentationStyle = .fullScreen
-//        present(destinationVc, animated: true)
+        //        let destinationVc = GameViewController()
+        //        destinationVc.modalPresentationStyle = .fullScreen
+        //        present(destinationVc, animated: true)
         
         /* Need shouldPreformSeque? maybe? */
+    }
+    
+    @IBSegueAction func scoresPressed(_ coder: NSCoder) -> ScoresViewController? {
+        ScoresViewController(
+            coder: coder
+        )
     }
     
 }

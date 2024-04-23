@@ -39,8 +39,12 @@ class GameViewController: UIViewController {
     func fireTimer(timer: Timer) {
         gameBrain.secondsRemaining -= 1
         updateUI()
+        let updatedScore = gameBrain.score
+
         
         if gameBrain.secondsRemaining <= 0 {
+            CoreDataManager.shared.addScore(score: updatedScore)
+            print(updatedScore)
             timer.invalidate()
             self.dismiss(animated: true, completion: nil)
         }
